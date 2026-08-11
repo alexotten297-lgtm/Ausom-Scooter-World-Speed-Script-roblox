@@ -7,22 +7,22 @@ local TweenService = game:GetService("TweenService")
 local player = Players.LocalPlayer
 
 -- Altes GUI sauber bereinigen
-if CoreGui:FindFirstChild("DualtronShadowHub") then
-    CoreGui.DualtronShadowHub:Destroy()
+if CoreGui:FindFirstChild("DualtronShadowDesign") then
+    CoreGui.DualtronShadowDesign:Destroy()
 end
 
 -- Haupt GUI erstellen
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "DualtronShadowHub"
+ScreenGui.Name = "DualtronShadowDesign"
 ScreenGui.Parent = CoreGui
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
--- Main Frame (Shadow White / Bubble Look)
+-- Main Frame (Shadow Design Look)
 local MainFrame = Instance.new("Frame")
 MainFrame.Name = "MainFrame"
-MainFrame.Size = UDim2.new(0, 520, 0, 340)
-MainFrame.Position = UDim2.new(0.5, -260, 0.5, -170)
-MainFrame.BackgroundColor3 = Color3.fromRGB(14, 14, 18)
+MainFrame.Size = UDim2.new(0, 540, 0, 360)
+MainFrame.Position = UDim2.new(0.5, -270, 0.5, -180)
+MainFrame.BackgroundColor3 = Color3.fromRGB(12, 12, 16)
 MainFrame.BorderSizePixel = 0
 MainFrame.Parent = ScreenGui
 
@@ -31,14 +31,14 @@ MainCorner.CornerRadius = UDim.new(0, 16)
 MainCorner.Parent = MainFrame
 
 local MainStroke = Instance.new("UIStroke")
-MainStroke.Color = Color3.fromRGB(50, 50, 65)
+MainStroke.Color = Color3.fromRGB(45, 45, 55)
 MainStroke.Thickness = 1.5
 MainStroke.Parent = MainFrame
 
 -- Topbar (Fensterleiste im OS-Style)
 local TopBar = Instance.new("Frame")
 TopBar.Size = UDim2.new(1, 0, 0, 42)
-TopBar.BackgroundColor3 = Color3.fromRGB(20, 20, 26)
+TopBar.BackgroundColor3 = Color3.fromRGB(18, 18, 24)
 TopBar.BorderSizePixel = 0
 TopBar.Parent = MainFrame
 
@@ -49,7 +49,7 @@ TopBarCorner.Parent = TopBar
 local TopbarFix = Instance.new("Frame")
 TopbarFix.Size = UDim2.new(1, 0, 0, 10)
 TopbarFix.Position = UDim2.new(0, 0, 1, -10)
-TopbarFix.BackgroundColor3 = Color3.fromRGB(20, 20, 26)
+TopbarFix.BackgroundColor3 = Color3.fromRGB(18, 18, 24)
 TopbarFix.BorderSizePixel = 0
 TopbarFix.Parent = TopBar
 
@@ -82,13 +82,13 @@ UserInputService.InputChanged:Connect(function(input)
     end
 end)
 
--- Titel & Symbol statt Emojis
+-- Titel & Symbol (Clean Shadow Design)
 local Title = Instance.new("TextLabel")
 Title.Size = UDim2.new(1, -50, 1, 0)
 Title.Position = UDim2.new(0, 18, 0, 0)
 Title.BackgroundTransparency = 1
-Title.Text = "[ ⚡ ] DUALTRON TOGO // SHADOW HUB"
-Title.TextColor3 = Color3.fromRGB(240, 240, 245)
+Title.Text = "[ ⚡ ] DUALTRON TOGO // SHADOW DESIGN"
+Title.TextColor3 = Color3.fromRGB(235, 235, 245)
 Title.TextSize = 12
 Title.Font = Enum.Font.GothamBold
 Title.TextXAlignment = Enum.TextXAlignment.Left
@@ -98,7 +98,7 @@ Title.Parent = TopBar
 local CloseBtn = Instance.new("TextButton")
 CloseBtn.Size = UDim2.new(0, 30, 0, 30)
 CloseBtn.Position = UDim2.new(1, -36, 0, 6)
-CloseBtn.BackgroundColor3 = Color3.fromRGB(26, 26, 34)
+CloseBtn.BackgroundColor3 = Color3.fromRGB(24, 24, 32)
 CloseBtn.Text = "✕"
 CloseBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 CloseBtn.TextSize = 13
@@ -110,7 +110,7 @@ CloseCorner.CornerRadius = UDim.new(0, 8)
 CloseCorner.Parent = CloseBtn
 
 local CloseStroke = Instance.new("UIStroke")
-CloseStroke.Color = Color3.fromRGB(70, 70, 90)
+CloseStroke.Color = Color3.fromRGB(60, 60, 75)
 CloseStroke.Thickness = 1
 CloseStroke.Parent = CloseBtn
 
@@ -118,7 +118,7 @@ CloseBtn.MouseEnter:Connect(function()
     TweenService:Create(CloseBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(200, 50, 50)}):Play()
 end)
 CloseBtn.MouseLeave:Connect(function()
-    TweenService:Create(CloseBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(26, 26, 34)}):Play()
+    TweenService:Create(CloseBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(24, 24, 32)}):Play()
 end)
 CloseBtn.MouseButton1Click:Connect(function()
     ScreenGui:Destroy()
@@ -126,16 +126,16 @@ end)
 
 -- Sidebar (Linke Reiter)
 local Sidebar = Instance.new("Frame")
-Sidebar.Size = UDim2.new(0, 145, 1, -42)
+Sidebar.Size = UDim2.new(0, 150, 1, -42)
 Sidebar.Position = UDim2.new(0, 0, 0, 42)
-Sidebar.BackgroundColor3 = Color3.fromRGB(16, 16, 21)
+Sidebar.BackgroundColor3 = Color3.fromRGB(15, 15, 20)
 Sidebar.BorderSizePixel = 0
 Sidebar.Parent = MainFrame
 
 -- Inhaltsbereich rechts
 local ContentContainer = Instance.new("Frame")
-ContentContainer.Size = UDim2.new(1, -145, 1, -42)
-ContentContainer.Position = UDim2.new(0, 145, 0, 42)
+ContentContainer.Size = UDim2.new(1, -150, 1, -42)
+ContentContainer.Position = UDim2.new(0, 150, 0, 42)
 ContentContainer.BackgroundTransparency = 1
 ContentContainer.Parent = MainFrame
 
@@ -156,6 +156,7 @@ local function createPage(name)
 end
 
 local homePage = createPage("Home")
+local spawnPage = createPage("Spawn")
 local speedPage = createPage("Geschwindigkeit")
 local settingsPage = createPage("Einstellungen")
 
@@ -165,15 +166,15 @@ local function switchTab(tabName)
     end
 end
 
--- Sidebar Buttons mit Bubble & Hover-Effekt (Ohne Emojis)
+-- Sidebar Buttons mit feinem Hover-Effekt
 local function createTabButton(text, yPos, tabName)
     local btn = Instance.new("TextButton")
     btn.Size = UDim2.new(1, -16, 0, 38)
     btn.Position = UDim2.new(0, 8, 0, yPos)
-    btn.BackgroundColor3 = Color3.fromRGB(22, 22, 29)
+    btn.BackgroundColor3 = Color3.fromRGB(20, 20, 26)
     btn.Text = text
-    btn.TextColor3 = Color3.fromRGB(200, 200, 215)
-    btn.TextSize = 12
+    btn.TextColor3 = Color3.fromRGB(190, 190, 205)
+    btn.TextSize = 11
     btn.Font = Enum.Font.GothamMedium
     btn.Parent = Sidebar
 
@@ -182,15 +183,15 @@ local function createTabButton(text, yPos, tabName)
     corner.Parent = btn
 
     local stroke = Instance.new("UIStroke")
-    stroke.Color = Color3.fromRGB(45, 45, 60)
+    stroke.Color = Color3.fromRGB(40, 40, 52)
     stroke.Thickness = 1
     stroke.Parent = btn
 
     btn.MouseEnter:Connect(function()
-        TweenService:Create(btn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(32, 32, 44), TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+        TweenService:Create(btn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(28, 28, 38), TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
     end)
     btn.MouseLeave:Connect(function()
-        TweenService:Create(btn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(22, 22, 29), TextColor3 = Color3.fromRGB(200, 200, 215)}):Play()
+        TweenService:Create(btn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(20, 20, 26), TextColor3 = Color3.fromRGB(190, 190, 205)}):Play()
     end)
 
     btn.MouseButton1Click:Connect(function()
@@ -198,63 +199,99 @@ local function createTabButton(text, yPos, tabName)
     end)
 end
 
-createTabButton("   HOME", 15, "Home")
-createTabButton("   GESCHWINDIGKEIT", 60, "Geschwindigkeit")
-createTabButton("   EINSTELLUNGEN", 105, "Einstellungen")
+createTabButton("   [ 🏠 ] HOME", 15, "Home")
+createTabButton("   [ 🚗 ] SPAWN", 60, "Spawn")
+createTabButton("   [ ⚡ ] GESCHWINDIGKEIT", 105, "Geschwindigkeit")
+createTabButton("   [ ⚙️ ] EINSTELLUNGEN", 150, "Einstellungen")
 
 switchTab("Home")
 
 ---------------------------------------------------
--- HOME TAB (Spawn Button mit Bubble Pop-up)
+-- HOME TAB
 ---------------------------------------------------
-local spawnBtn = Instance.new("TextButton")
-spawnBtn.Size = UDim2.new(0, 240, 0, 46)
-spawnBtn.Position = UDim2.new(0.5, -120, 0, 50)
-spawnBtn.BackgroundColor3 = Color3.fromRGB(24, 24, 32)
-spawnBtn.Text = "DUALTRON TOGO SPAWNEN"
-spawnBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-spawnBtn.TextSize = 12
-spawnBtn.Font = Enum.Font.GothamBold
-spawnBtn.Parent = homePage
+local homeWelcome = Instance.new("TextLabel")
+homeWelcome.Size = UDim2.new(1, -30, 0, 40)
+homeWelcome.Position = UDim2.new(0, 15, 0, 20)
+homeWelcome.BackgroundTransparency = 1
+homeWelcome.Text = "Willkommen im Shadow Design Control Center."
+homeWelcome.TextColor3 = Color3.fromRGB(210, 210, 220)
+homeWelcome.TextSize, homeWelcome.Font = 12, Enum.Font.GothamBold
+homeWelcome.TextXAlignment = Enum.TextXAlignment.Left
+homeWelcome.Parent = homePage
 
-local spawnCorner = Instance.new("UICorner")
-spawnCorner.CornerRadius = UDim.new(0, 12)
-spawnCorner.Parent = spawnBtn
+---------------------------------------------------
+-- SPAWN TAB (Mit fehlerfreiem, zentriertem Bubble Pop-up)
+---------------------------------------------------
+local spawnTitle = Instance.new("TextLabel")
+spawnTitle.Size = UDim2.new(1, -30, 0, 30)
+spawnTitle.Position = UDim2.new(0, 15, 0, 15)
+spawnTitle.BackgroundTransparency = 1
+spawnTitle.Text = "[ 🚗 ] FAHRZEUG SPAWN LISTE (CLIENT)"
+spawnTitle.TextColor3 = Color3.fromRGB(235, 235, 245)
+spawnTitle.TextSize = 12
+spawnTitle.Font = Enum.Font.GothamBold
+spawnTitle.TextXAlignment = Enum.TextXAlignment.Left
+spawnTitle.Parent = spawnPage
 
-local spawnStroke = Instance.new("UIStroke")
-spawnStroke.Color = Color3.fromRGB(80, 80, 105)
-spawnStroke.Thickness = 1.5
-spawnStroke.Parent = spawnBtn
+local function createSpawnButton(text, yPos, remoteArg)
+    local spawnBtn = Instance.new("TextButton")
+    spawnBtn.AnchorPoint = Vector2.new(0.5, 0)
+    spawnBtn.Size = UDim2.new(0, 240, 0, 44)
+    spawnBtn.Position = UDim2.new(0.5, 0, 0, yPos)
+    spawnBtn.BackgroundColor3 = Color3.fromRGB(22, 22, 30)
+    spawnBtn.Text = text
+    spawnBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    spawnBtn.TextSize = 11
+    spawnBtn.Font = Enum.Font.GothamBold
+    spawnBtn.Parent = spawnPage
 
-spawnBtn.MouseEnter:Connect(function()
-    TweenService:Create(spawnBtn, TweenInfo.new(0.15), {Size = UDim2.new(0, 246, 0, 49), Position = UDim2.new(0.5, -123, 0, 485)}):Play() -- Pop-up Effekt
-end)
-spawnBtn.MouseLeave:Connect(function()
-    TweenService:Create(spawnBtn, TweenInfo.new(0.15), {Size = UDim2.new(0, 240, 0, 46), Position = UDim2.new(0.5, -120, 0, 50)}):Play()
-end)
+    local spawnCorner = Instance.new("UICorner")
+    spawnCorner.CornerRadius = UDim.new(0, 10)
+    spawnCorner.Parent = spawnBtn
 
-spawnBtn.MouseButton1Click:Connect(function()
-    local eventsFolder = ReplicatedStorage:FindFirstChild("ScooterEvents")
-    if eventsFolder then
-        for _, remote in ipairs(eventsFolder:GetChildren()) do
-            if remote:IsA("RemoteEvent") then
-                remote:FireServer("Dualtron Togo")
+    local spawnStroke = Instance.new("UIStroke")
+    spawnStroke.Color = Color3.fromRGB(70, 70, 90)
+    spawnStroke.Thickness = 1.5
+    spawnStroke.Parent = spawnBtn
+
+    -- Absolut stabiler Bubble-Pop-up-Effekt dank festem AnchorPoint (skaliert gleichmäßig von der Mitte, fliegt nirgendwo hin)
+    spawnBtn.MouseEnter:Connect(function()
+        TweenService:Create(spawnBtn, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            Size = UDim2.new(0, 250, 0, 48)
+        }):Play()
+    end)
+    spawnBtn.MouseLeave:Connect(function()
+        TweenService:Create(spawnBtn, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            Size = UDim2.new(0, 240, 0, 44)
+        }):Play()
+    end)
+
+    spawnBtn.MouseButton1Click:Connect(function()
+        local eventsFolder = ReplicatedStorage:FindFirstChild("ScooterEvents")
+        if eventsFolder then
+            for _, remote in ipairs(eventsFolder:GetChildren()) do
+                if remote:IsA("RemoteEvent") then
+                    remote:FireServer(remoteArg)
+                end
             end
         end
-    end
-end)
+    end)
+end
+
+createSpawnButton("DUALTRON TOGO (client)", 60, "Dualtron Togo")
+createSpawnButton("SURON (client)", 115, "kukurins1max")
 
 ---------------------------------------------------
--- GESCHWINDIGKEIT TAB (Regler & Tacho-Symbole)
+-- GESCHWINDIGKEIT TAB (Regler & Tacho)
 ---------------------------------------------------
-local speedVal = 350
+local speedVal = 100
 
 local speedTitle = Instance.new("TextLabel")
 speedTitle.Size = UDim2.new(1, -30, 0, 30)
 speedTitle.Position = UDim2.new(0, 15, 0, 15)
 speedTitle.BackgroundTransparency = 1
-speedTitle.Text = "[ TACHO ] GESCHWINDIGKEITS-REGLER"
-speedTitle.TextColor3 = Color3.fromRGB(240, 240, 245)
+speedTitle.Text = "[ ⚡ ] GESCHWINDIGKEITS-REGLER"
+speedTitle.TextColor3 = Color3.fromRGB(235, 235, 245)
 speedTitle.TextSize = 12
 speedTitle.Font = Enum.Font.GothamBold
 speedTitle.TextXAlignment = Enum.TextXAlignment.Left
@@ -264,9 +301,9 @@ local speedDisplay = Instance.new("TextLabel")
 speedDisplay.Size = UDim2.new(1, -30, 0, 20)
 speedDisplay.Position = UDim2.new(0, 15, 0, 45)
 speedDisplay.BackgroundTransparency = 1
-speedDisplay.Text = "Aktueller Wert: 350 KM/H"
+speedDisplay.Text = "Aktueller Wert: 100 KM/H"
 speedDisplay.TextColor3 = Color3.fromRGB(150, 150, 170)
-speedDisplay.TextSize, speedDisplay.Font = 12, Enum.Font.Gotham
+speedDisplay.TextSize, speedDisplay.Font = 11, Enum.Font.Gotham
 speedDisplay.TextXAlignment = Enum.TextXAlignment.Left
 speedDisplay.Parent = speedPage
 
@@ -274,7 +311,7 @@ speedDisplay.Parent = speedPage
 local SliderBg = Instance.new("Frame")
 SliderBg.Size = UDim2.new(1, -30, 0, 10)
 SliderBg.Position = UDim2.new(0, 15, 0, 85)
-SliderBg.BackgroundColor3 = Color3.fromRGB(22, 22, 30)
+SliderBg.BackgroundColor3 = Color3.fromRGB(20, 20, 26)
 SliderBg.BorderSizePixel = 0
 SliderBg.Parent = speedPage
 
@@ -283,13 +320,13 @@ SliderBgCorner.CornerRadius = UDim.new(1, 0)
 SliderBgCorner.Parent = SliderBg
 
 local SliderBgStroke = Instance.new("UIStroke")
-SliderBgStroke.Color = Color3.fromRGB(60, 60, 75)
+SliderBgStroke.Color = Color3.fromRGB(55, 55, 70)
 SliderBgStroke.Thickness = 1
 SliderBgStroke.Parent = SliderBg
 
 local SliderFill = Instance.new("Frame")
-SliderFill.Size = UDim2.new(350 / 800, 0, 1, 0)
-SliderFill.BackgroundColor3 = Color3.fromRGB(240, 240, 250)
+SliderFill.Size = UDim2.new(100 / 300, 0, 1, 0)
+SliderFill.BackgroundColor3 = Color3.fromRGB(235, 235, 245)
 SliderFill.BorderSizePixel = 0
 SliderFill.Parent = SliderBg
 
@@ -327,20 +364,20 @@ UserInputService.InputChanged:Connect(function(input)
         local posVal = math.clamp((mousePos - absPos) / absSize, 0, 1)
         
         SliderFill.Size = UDim2.new(posVal, 0, 1, 0)
-        speedVal = math.floor(posVal * 800)
+        speedVal = math.floor(posVal * 300)
         speedDisplay.Text = "Aktueller Wert: " .. speedVal .. " KM/H"
     end
 end)
 
 ---------------------------------------------------
--- EINSTELLUNGEN TAB (T Keybind Umschalter mit Pop-up)
+-- EINSTELLUNGEN TAB (Keybind Umschalter)
 ---------------------------------------------------
 local bindTitle = Instance.new("TextLabel")
 bindTitle.Size = UDim2.new(1, -30, 0, 30)
 bindTitle.Position = UDim2.new(0, 15, 0, 15)
 bindTitle.BackgroundTransparency = 1
-bindTitle.Text = "[ CONFIG ] GUI EIN/AUSBLENDEN TASTE"
-bindTitle.TextColor3 = Color3.fromRGB(240, 240, 245)
+bindTitle.Text = "[ ⚙️ ] GUI EIN/AUSBLENDEN TASTE"
+bindTitle.TextColor3 = Color3.fromRGB(235, 235, 245)
 bindTitle.TextSize = 12
 bindTitle.Font = Enum.Font.GothamBold
 bindTitle.TextXAlignment = Enum.TextXAlignment.Left
@@ -348,12 +385,13 @@ bindTitle.Parent = settingsPage
 
 local currentKey = Enum.KeyCode.LeftControl
 local bindBtn = Instance.new("TextButton")
+bindBtn.AnchorPoint = Vector2.new(0.5, 0)
 bindBtn.Size = UDim2.new(0, 190, 0, 40)
-bindBtn.Position = UDim2.new(0, 15, 0, 50)
-bindBtn.BackgroundColor3 = Color3.fromRGB(24, 24, 32)
+bindBtn.Position = UDim2.new(0.5, 0, 0, 55)
+bindBtn.BackgroundColor3 = Color3.fromRGB(22, 22, 30)
 bindBtn.Text = "LeftControl"
-bindBtn.TextColor3 = Color3.fromRGB(240, 240, 250)
-bindBtn.TextSize, bindBtn.Font = 12, Enum.Font.GothamBold
+bindBtn.TextColor3 = Color3.fromRGB(235, 235, 245)
+bindBtn.TextSize, bindBtn.Font = 11, Enum.Font.GothamBold
 bindBtn.Parent = settingsPage
 
 local bindCorner = Instance.new("UICorner")
@@ -361,15 +399,15 @@ bindCorner.CornerRadius = UDim.new(0, 10)
 bindCorner.Parent = bindBtn
 
 local bindStroke = Instance.new("UIStroke")
-bindStroke.Color = Color3.fromRGB(80, 80, 105)
+bindStroke.Color = Color3.fromRGB(70, 70, 90)
 bindStroke.Thickness = 1.5
 bindStroke.Parent = bindBtn
 
 bindBtn.MouseEnter:Connect(function()
-    TweenService:Create(bindBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(35, 35, 48)}):Play()
+    TweenService:Create(bindBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(32, 32, 44)}):Play()
 end)
 bindBtn.MouseLeave:Connect(function()
-    TweenService:Create(bindBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(24, 24, 32)}):Play()
+    TweenService:Create(bindBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(22, 22, 30)}):Play()
 end)
 
 local bindingKey = false
@@ -384,7 +422,7 @@ bindBtn.MouseButton1Click:Connect(function()
         if input.UserInputType == Enum.UserInputType.Keyboard then
             currentKey = input.KeyCode
             bindBtn.Text = input.KeyCode.Name
-            bindBtn.TextColor3 = Color3.fromRGB(240, 240, 250)
+            bindBtn.TextColor3 = Color3.fromRGB(235, 235, 245)
             bindingKey = false
             connection:Disconnect()
         end
@@ -398,25 +436,35 @@ UserInputService.InputBegan:Connect(function(input)
 end)
 
 ---------------------------------------------------
--- FINALER HIGH-SPEED MOTOR (Mit Schwerkraft-Schutz)
+-- STABILER HIGH-SPEED MOTOR (Mit Schwerkraft-Schutz)
 ---------------------------------------------------
 task.spawn(function()
-    RunService.RenderStepped:Connect(function(dt)
-        local expectedName = "Dualtron Togo_OwnedBy_" .. player.Name
-        local targetModel = workspace:FindFirstChild(expectedName)
+    RunService.RenderStepped:Connect(function()
+        local possibleNames = {
+            "Dualtron Togo_OwnedBy_" .. player.Name,
+            "kukurins1max_OwnedBy_" .. player.Name
+        }
+        
+        local targetModel = nil
+        for _, name in ipairs(possibleNames) do
+            local found = workspace:FindFirstChild(name)
+            if found then
+                targetModel = found
+                break
+            end
+        end
         
         if targetModel then
             local basePart = targetModel:FindFirstChild("BasePart") or targetModel.PrimaryPart or targetModel:FindFirstChildWhichIsA("BasePart")
             
             if basePart then
-                -- Netzwerk-Autorität erzwingen
                 pcall(function()
                     if basePart:GetNetworkOwner() ~= player then
                         basePart:SetNetworkOwner(player)
                     end
                 end)
                 
-                -- PRÜFUNG: Sitzt oder steht der Spieler auf dem Roller?
+                -- PRÜFUNG: Sitzt oder steht der Spieler auf dem Fahrzeug?
                 local isConnectedToPlayer = false
                 local character = player.Character
                 if character then
@@ -434,25 +482,18 @@ task.spawn(function()
                     end
                 end
                 
-                -- Der Turbo feuert NUR, wenn der Spieler drauf sitzt
+                -- Turbo greift nur beim Aufsitzen, behält die Y-Schwerkraft exakt bei (kein Aus-der-Map-Fliegen)
                 if isConnectedToPlayer then
                     for _, desc in ipairs(targetModel:GetDescendants()) do
                         if desc:IsA("LinearVelocity") then
-                            desc.MaxForce = math.huge
-                            local vel = desc.VectorVelocity
-                            if vel.Magnitude > 0.1 then
-                                desc.VectorVelocity = vel.Unit * speedVal
+                            desc.MaxForce = 25000
+                            if UserInputService:IsKeyDown(Enum.KeyCode.W) or UserInputService:IsKeyDown(Enum.KeyCode.Up) then
+                                local lookV = basePart.CFrame.LookVector
+                                desc.VectorVelocity = Vector3.new(lookV.X * speedVal, desc.VectorVelocity.Y, lookV.Z * speedVal)
+                            else
+                                desc.VectorVelocity = Vector3.new(0, desc.VectorVelocity.Y, 0)
                             end
-                        elseif desc:IsA("VectorForce") then
-                            desc.Force = desc.Force * 20
                         end
-                    end
-                    
-                    -- Fester Boden-Grip: Erhält exakt die vertikale Y-Geschwindigkeit (Schwerkraft), kein Aus-der-Map-Fliegen!
-                    if UserInputService:IsKeyDown(Enum.KeyCode.W) or UserInputService:IsKeyDown(Enum.KeyCode.Up) then
-                        local currentVel = basePart.AssemblyLinearVelocity
-                        local lookV = basePart.CFrame.LookVector
-                        basePart.AssemblyLinearVelocity = Vector3.new(lookV.X * speedVal, currentVel.Y, lookV.Z * speedVal)
                     end
                 end
             end
