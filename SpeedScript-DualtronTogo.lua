@@ -16,12 +16,12 @@ ScreenGui.Name = "DualtronShadowHub"
 ScreenGui.Parent = CoreGui
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
--- Main Frame (Hauptelement im Shadow White Design)
+-- Main Frame (Shadow White Design)
 local MainFrame = Instance.new("Frame")
 MainFrame.Name = "MainFrame"
 MainFrame.Size = UDim2.new(0, 520, 0, 340)
 MainFrame.Position = UDim2.new(0.5, -260, 0.5, -170)
-MainFrame.BackgroundColor3 = Color3.fromRGB(16, 16, 20) -- Tiefes Schwarz/Anthrazit
+MainFrame.BackgroundColor3 = Color3.fromRGB(16, 16, 20)
 MainFrame.BorderSizePixel = 0
 MainFrame.Parent = ScreenGui
 
@@ -30,7 +30,7 @@ MainCorner.CornerRadius = UDim.new(0, 14)
 MainCorner.Parent = MainFrame
 
 local MainStroke = Instance.new("UIStroke")
-MainStroke.Color = Color3.fromRGB(60, 60, 70) -- Gut erkennbare Umrandung
+MainStroke.Color = Color3.fromRGB(60, 60, 70)
 MainStroke.Thickness = 1.5
 MainStroke.Parent = MainFrame
 
@@ -45,7 +45,6 @@ local TopBarCorner = Instance.new("UICorner")
 TopBarCorner.CornerRadius = UDim.new(0, 14)
 TopBarCorner.Parent = TopBar
 
--- Fix für die untere Seite der abgerundeten Topbar
 local TopbarFix = Instance.new("Frame")
 TopbarFix.Size = UDim2.new(1, 0, 0, 10)
 TopbarFix.Position = UDim2.new(0, 0, 1, -10)
@@ -159,7 +158,7 @@ local function switchTab(tabName)
     end
 end
 
--- Sidebar Buttons im Shadow-Design
+-- Sidebar Buttons
 local function createTabButton(text, yPos, tabName)
     local btn = Instance.new("TextButton")
     btn.Size = UDim2.new(1, -16, 0, 38)
@@ -209,7 +208,7 @@ spawnCorner.CornerRadius = UDim.new(0, 10)
 spawnCorner.Parent = spawnBtn
 
 local spawnStroke = Instance.new("UIStroke")
-spawnStroke.Color = Color3.fromRGB(90, 90, 110) -- Schöne helle Kontur für den Bubble-Look
+spawnStroke.Color = Color3.fromRGB(90, 90, 110)
 spawnStroke.Thickness = 1.5
 spawnStroke.Parent = spawnBtn
 
@@ -250,7 +249,6 @@ speedDisplay.TextSize, speedDisplay.Font = 12, Enum.Font.Gotham
 speedDisplay.TextXAlignment = Enum.TextXAlignment.Left
 speedDisplay.Parent = speedPage
 
--- Slider Leiste
 local SliderBg = Instance.new("Frame")
 SliderBg.Size = UDim2.new(1, -30, 0, 8)
 SliderBg.Position = UDim2.new(0, 15, 0, 85)
@@ -356,7 +354,7 @@ bindBtn.MouseButton1Click:Connect(function()
     connection = UserInputService.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.Keyboard then
             currentKey = input.KeyCode
-            bindBtn.Text = input.KeyCode.Name
+            bindBtn.Test = input.KeyCode.Name
             bindBtn.TextColor3 = Color3.fromRGB(240, 240, 250)
             bindingKey = false
             connection:Disconnect()
@@ -364,7 +362,6 @@ bindBtn.MouseButton1Click:Connect(function()
     end)
 end)
 
--- Keybind Listener zum Ein- und Ausblenden
 UserInputService.InputBegan:Connect(function(input)
     if not bindingKey and input.KeyCode == currentKey then
         MainFrame.Visible = not MainFrame.Visible
@@ -372,7 +369,7 @@ UserInputService.InputBegan:Connect(function(input)
 end)
 
 ---------------------------------------------------
--- HIGH-SPEED MOTOR (Überschreibt Server-Drosselung)
+-- SICHERER HIGH-SPEED MOTOR (Mit Aufsitz-Check & Schwerkraft)
 ---------------------------------------------------
 task.spawn(function()
     RunService.RenderStepped:Connect(function(dt)
@@ -383,25 +380,53 @@ task.spawn(function()
             local basePart = targetModel:FindFirstChild("BasePart") or targetModel.PrimaryPart or targetModel:FindFirstChildWhichIsA("BasePart")
             
             if basePart then
+                -- Netzwerk-Autorität erzwingen
                 pcall(function()
-                    basePart:SetNetworkOwner(player)
+                    if basePart:GetNetworkOwner() ~= player then
+                        basePart:SetNetworkOwner(player)
+                    end
                 end)
                 
-                for _, desc in ipairs(targetModel:GetDescendants()) do
-                    if desc:IsA("LinearVelocity") then
-                        desc.MaxForce = math.huge
-                        local vel = desc.VectorVelocity
-                        if vel.Magnitude > 0.1 then
-                            desc.VectorVelocity = vel.Unit * speedVal
+                -- PRÜFUNG: Sitzt/Steht der Spieler auf dem Roller?
+                local isConnectedToPlayer = false
+                local character = player.Character
+                if character then
+                    -- 1. Prüfen ob verschweißt
+                    for _, desc in ipairs(character:GetDescendants()) do
+                        if desc:IsA("WeldConstraint") or desc:IsA("Weld") or desc:IsA("Motor6D") then
+                            if (desc.Part0 and desc.Part0:IsDescendantOf(targetModel)) or (desc.Part1 and desc.Part1:IsDescendantOf(targetModel)) then
+                                isConnectedToPlayer = true
+                                break
+                            end
                         end
-                    elseif desc:IsA("VectorForce") then
-                        desc.Force = desc.Force * 20
+                    end
+                    -- 2. Prüfen ob im Roblox-Sitz
+                    local humanoid = character:FindFirstChildOfClass("Humanoid")
+                    if humanoid and humanoid.SeatPart and humanoid.SeatPart:IsDescendantOf(targetModel) then
+                        isConnectedToPlayer = true
                     end
                 end
                 
-                if UserInputService:IsKeyDown(Enum.KeyCode.W) or UserInputService:IsKeyDown(Enum.KeyCode.Up) then
-                    basePart.CFrame = basePart.CFrame + (basePart.CFrame.LookVector * (speedVal * 0.5 * dt))
-                    basePart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                -- Der Boost greift NUR, wenn der Spieler auch tatsächlich auf dem Roller sitzt!
+                if isConnectedToPlayer then
+                    for _, desc in ipairs(targetModel:GetDescendants()) do
+                        if desc:IsA("LinearVelocity") then
+                            desc.MaxForce = math.huge
+                            local vel = desc.VectorVelocity
+                            if vel.Magnitude > 0.1 then
+                                desc.VectorVelocity = vel.Unit * speedVal
+                            end
+                        elseif desc:IsA("VectorForce") then
+                            desc.Force = desc.Force * 15
+                        end
+                    end
+                    
+                    -- Sichere Beschleunigung: Behält die Y-Achse (Schwerkraft) bei, verhindert das Aus-der-Map-Fliegen
+                    if UserInputService:IsKeyDown(Enum.KeyCode.W) or UserInputService:IsKeyDown(Enum.KeyCode.Up) then
+                        local currentVel = basePart.AssemblyLinearVelocity
+                        local lookV = basePart.CFrame.LookVector
+                        basePart.AssemblyLinearVelocity = Vector3.new(lookV.X * speedVal, currentVel.Y, lookV.Z * speedVal)
+                    end
                 end
             end
         end
