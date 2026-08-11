@@ -7,13 +7,13 @@ local TweenService = game:GetService("TweenService")
 local player = Players.LocalPlayer
 
 -- Altes GUI sauber bereinigen
-if CoreGui:FindFirstChild("DualtronShadowDesign") then
-    CoreGui.DualtronShadowDesign:Destroy()
+if CoreGui:FindFirstChild("ScooterControlHub") then
+    CoreGui.ScooterControlHub:Destroy()
 end
 
--- Haupt GUI erstellen
+-- Haupt GUI erstellen (Shadow Design Layout)
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "DualtronShadowDesign"
+ScreenGui.Name = "ScooterControlHub"
 ScreenGui.Parent = CoreGui
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
@@ -35,7 +35,7 @@ MainStroke.Color = Color3.fromRGB(45, 45, 55)
 MainStroke.Thickness = 1.5
 MainStroke.Parent = MainFrame
 
--- Topbar (Fensterleiste im OS-Style)
+-- Topbar (Fensterleiste im Shadow Design)
 local TopBar = Instance.new("Frame")
 TopBar.Size = UDim2.new(1, 0, 0, 42)
 TopBar.BackgroundColor3 = Color3.fromRGB(18, 18, 24)
@@ -82,19 +82,19 @@ UserInputService.InputChanged:Connect(function(input)
     end
 end)
 
--- Titel & Symbol (Clean Shadow Design)
+-- Titel & Symbol
 local Title = Instance.new("TextLabel")
 Title.Size = UDim2.new(1, -50, 1, 0)
 Title.Position = UDim2.new(0, 18, 0, 0)
 Title.BackgroundTransparency = 1
-Title.Text = "[ ⚡ ] DUALTRON TOGO // SHADOW DESIGN"
+Title.Text = "[ ⚡ ] VEHICLE CONTROL SYSTEM"
 Title.TextColor3 = Color3.fromRGB(235, 235, 245)
 Title.TextSize = 12
 Title.Font = Enum.Font.GothamBold
 Title.TextXAlignment = Enum.TextXAlignment.Left
 Title.Parent = TopBar
 
--- Hochwertiger X-Button
+-- X-Button
 local CloseBtn = Instance.new("TextButton")
 CloseBtn.Size = UDim2.new(0, 30, 0, 30)
 CloseBtn.Position = UDim2.new(1, -36, 0, 6)
@@ -213,14 +213,14 @@ local homeWelcome = Instance.new("TextLabel")
 homeWelcome.Size = UDim2.new(1, -30, 0, 40)
 homeWelcome.Position = UDim2.new(0, 15, 0, 20)
 homeWelcome.BackgroundTransparency = 1
-homeWelcome.Text = "Willkommen im Shadow Design Control Center."
+homeWelcome.Text = "Shadow Design Control Center aktiv."
 homeWelcome.TextColor3 = Color3.fromRGB(210, 210, 220)
 homeWelcome.TextSize, homeWelcome.Font = 12, Enum.Font.GothamBold
 homeWelcome.TextXAlignment = Enum.TextXAlignment.Left
 homeWelcome.Parent = homePage
 
 ---------------------------------------------------
--- SPAWN TAB (Mit fehlerfreiem, zentriertem Bubble Pop-up)
+-- SPAWN TAB (Mit allen Modellen & fehlerfreiem Bubble Pop-up)
 ---------------------------------------------------
 local spawnTitle = Instance.new("TextLabel")
 spawnTitle.Size = UDim2.new(1, -30, 0, 30)
@@ -236,7 +236,7 @@ spawnTitle.Parent = spawnPage
 local function createSpawnButton(text, yPos, remoteArg)
     local spawnBtn = Instance.new("TextButton")
     spawnBtn.AnchorPoint = Vector2.new(0.5, 0)
-    spawnBtn.Size = UDim2.new(0, 240, 0, 44)
+    spawnBtn.Size = UDim2.new(0, 240, 0, 42)
     spawnBtn.Position = UDim2.new(0.5, 0, 0, yPos)
     spawnBtn.BackgroundColor3 = Color3.fromRGB(22, 22, 30)
     spawnBtn.Text = text
@@ -254,15 +254,15 @@ local function createSpawnButton(text, yPos, remoteArg)
     spawnStroke.Thickness = 1.5
     spawnStroke.Parent = spawnBtn
 
-    -- Absolut stabiler Bubble-Pop-up-Effekt dank festem AnchorPoint (skaliert gleichmäßig von der Mitte, fliegt nirgendwo hin)
+    -- Stabiler Bubble-Pop-up-Effekt nach oben (zentriert skaliert)
     spawnBtn.MouseEnter:Connect(function()
         TweenService:Create(spawnBtn, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-            Size = UDim2.new(0, 250, 0, 48)
+            Size = UDim2.new(0, 248, 0, 45)
         }):Play()
     end)
     spawnBtn.MouseLeave:Connect(function()
         TweenService:Create(spawnBtn, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-            Size = UDim2.new(0, 240, 0, 44)
+            Size = UDim2.new(0, 240, 0, 42)
         }):Play()
     end)
 
@@ -271,15 +271,17 @@ local function createSpawnButton(text, yPos, remoteArg)
         if eventsFolder then
             for _, remote in ipairs(eventsFolder:GetChildren()) do
                 if remote:IsA("RemoteEvent") then
-                    remote:FireServer(remoteArg)
+                    pcall(function()
+                        remote:FireServer(remoteArg)
+                    end)
                 end
             end
         end
     end)
 end
 
-createSpawnButton("DUALTRON TOGO (client)", 60, "Dualtron Togo")
-createSpawnButton("SURON (client)", 115, "kukurins1max")
+createSpawnButton("DUALTRON TOGO (client)", 55, "Dualtron Togo")
+createSpawnButton("SURON (client)", 105, "kukurins1max")
 
 ---------------------------------------------------
 -- GESCHWINDIGKEIT TAB (Regler & Tacho)
@@ -436,7 +438,7 @@ UserInputService.InputBegan:Connect(function(input)
 end)
 
 ---------------------------------------------------
--- STABILER HIGH-SPEED MOTOR (Mit Schwerkraft-Schutz)
+-- STABILER HIGH-SPEED MOTOR (Mit Schwerkraft-Schutz für alle Modelle)
 ---------------------------------------------------
 task.spawn(function()
     RunService.RenderStepped:Connect(function()
@@ -482,7 +484,7 @@ task.spawn(function()
                     end
                 end
                 
-                -- Turbo greift nur beim Aufsitzen, behält die Y-Schwerkraft exakt bei (kein Aus-der-Map-Fliegen)
+                -- Turbo greift nur beim Aufsitzen, behält die Y-Schwerkraft exakt bei
                 if isConnectedToPlayer then
                     for _, desc in ipairs(targetModel:GetDescendants()) do
                         if desc:IsA("LinearVelocity") then
