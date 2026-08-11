@@ -7,60 +7,59 @@ local TweenService = game:GetService("TweenService")
 local player = Players.LocalPlayer
 
 -- Altes GUI sauber bereinigen
-if CoreGui:FindFirstChild("ScooterControlHub") then
-    CoreGui.ScooterControlHub:Destroy()
+if CoreGui:FindFirstChild("ScooterControllerUI") then
+    CoreGui.ScooterControllerUI:Destroy()
 end
 
--- Haupt GUI erstellen (Shadow Design Layout)
+-- Haupt GUI im Shadow Design erstellen (Design-Stil, kein Name)
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "ScooterControlHub"
+ScreenGui.Name = "ScooterControllerUI"
 ScreenGui.Parent = CoreGui
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
--- Main Frame (Shadow Design Look)
+-- Main Frame (Sleek Shadow Design mit Tiefe)
 local MainFrame = Instance.new("Frame")
 MainFrame.Name = "MainFrame"
-MainFrame.Size = UDim2.new(0, 540, 0, 360)
-MainFrame.Position = UDim2.new(0.5, -270, 0.5, -180)
-MainFrame.BackgroundColor3 = Color3.fromRGB(12, 12, 16)
+MainFrame.Size = UDim2.new(0, 580, 0, 380)
+MainFrame.Position = UDim2.new(0.5, -290, 0.5, -190)
+MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 18)
 MainFrame.BorderSizePixel = 0
 MainFrame.Parent = ScreenGui
 
 local MainCorner = Instance.new("UICorner")
-MainCorner.CornerRadius = UDim.new(0, 16)
+MainCorner.CornerRadius = UDim.new(0, 12)
 MainCorner.Parent = MainFrame
 
 local MainStroke = Instance.new("UIStroke")
 MainStroke.Color = Color3.fromRGB(45, 45, 55)
-MainStroke.Thickness = 1.5
+MainStroke.Thickness = 1.2
 MainStroke.Parent = MainFrame
 
--- Topbar (Fensterleiste im Shadow Design)
+-- Topbar (Sleek Shadow Design Leiste)
 local TopBar = Instance.new("Frame")
-TopBar.Size = UDim2.new(1, 0, 0, 42)
-TopBar.BackgroundColor3 = Color3.fromRGB(18, 18, 24)
+TopBar.Size = UDim2.new(1, 0, 0, 40)
+TopBar.BackgroundColor3 = Color3.fromRGB(20, 20, 25)
 TopBar.BorderSizePixel = 0
 TopBar.Parent = MainFrame
 
 local TopBarCorner = Instance.new("UICorner")
-TopBarCorner.CornerRadius = UDim.new(0, 16)
+TopBarCorner.CornerRadius = UDim.new(0, 12)
 TopBarCorner.Parent = TopBar
 
 local TopbarFix = Instance.new("Frame")
 TopbarFix.Size = UDim2.new(1, 0, 0, 10)
 TopbarFix.Position = UDim2.new(0, 0, 1, -10)
-TopbarFix.BackgroundColor3 = Color3.fromRGB(18, 18, 24)
+TopbarFix.BackgroundColor3 = Color3.fromRGB(20, 20, 25)
 TopbarFix.BorderSizePixel = 0
 TopbarFix.Parent = TopBar
 
--- Windows-Style Drag & Drop Logik
+-- Fenster verschieben (Drag & Drop)
 local dragging, dragInput, dragStart, startPos
 TopBar.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 then
         dragging = true
         dragStart = input.Position
         startPos = MainFrame.Position
-        
         input.Changed:Connect(function()
             if input.UserInputState == Enum.UserInputState.End then
                 dragging = false
@@ -82,73 +81,65 @@ UserInputService.InputChanged:Connect(function(input)
     end
 end)
 
--- Titel & Symbol
+-- Titel
 local Title = Instance.new("TextLabel")
 Title.Size = UDim2.new(1, -50, 1, 0)
-Title.Position = UDim2.new(0, 18, 0, 0)
+Title.Position = UDim2.new(0, 16, 0, 0)
 Title.BackgroundTransparency = 1
-Title.Text = "[ ⚡ ] VEHICLE CONTROL SYSTEM"
-Title.TextColor3 = Color3.fromRGB(235, 235, 245)
-Title.TextSize = 12
+Title.Text = "SHADOW DESIGN // VEHICLE SYSTEM"
+Title.TextColor3 = Color3.fromRGB(240, 240, 245)
+Title.TextSize = 11
 Title.Font = Enum.Font.GothamBold
 Title.TextXAlignment = Enum.TextXAlignment.Left
 Title.Parent = TopBar
 
--- X-Button
+-- Schließen-Button
 local CloseBtn = Instance.new("TextButton")
-CloseBtn.Size = UDim2.new(0, 30, 0, 30)
-CloseBtn.Position = UDim2.new(1, -36, 0, 6)
-CloseBtn.BackgroundColor3 = Color3.fromRGB(24, 24, 32)
+CloseBtn.Size = UDim2.new(0, 28, 0, 28)
+CloseBtn.Position = UDim2.new(1, -34, 0, 6)
+CloseBtn.BackgroundColor3 = Color3.fromRGB(25, 25, 32)
 CloseBtn.Text = "✕"
-CloseBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-CloseBtn.TextSize = 13
+CloseBtn.TextColor3 = Color3.fromRGB(240, 240, 245)
+CloseBtn.TextSize = 12
 CloseBtn.Font = Enum.Font.GothamBold
 CloseBtn.Parent = TopBar
 
 local CloseCorner = Instance.new("UICorner")
-CloseCorner.CornerRadius = UDim.new(0, 8)
+CloseCorner.CornerRadius = UDim.new(0, 6)
 CloseCorner.Parent = CloseBtn
-
-local CloseStroke = Instance.new("UIStroke")
-CloseStroke.Color = Color3.fromRGB(60, 60, 75)
-CloseStroke.Thickness = 1
-CloseStroke.Parent = CloseBtn
 
 CloseBtn.MouseEnter:Connect(function()
     TweenService:Create(CloseBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(200, 50, 50)}):Play()
 end)
 CloseBtn.MouseLeave:Connect(function()
-    TweenService:Create(CloseBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(24, 24, 32)}):Play()
+    TweenService:Create(CloseBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(25, 25, 32)}):Play()
 end)
 CloseBtn.MouseButton1Click:Connect(function()
     ScreenGui:Destroy()
 end)
 
--- Sidebar (Linke Reiter)
+-- Sidebar (Linke Navigation)
 local Sidebar = Instance.new("Frame")
-Sidebar.Size = UDim2.new(0, 150, 1, -42)
-Sidebar.Position = UDim2.new(0, 0, 0, 42)
-Sidebar.BackgroundColor3 = Color3.fromRGB(15, 15, 20)
+Sidebar.Size = UDim2.new(0, 150, 1, -40)
+Sidebar.Position = UDim2.new(0, 0, 0, 40)
+Sidebar.BackgroundColor3 = Color3.fromRGB(12, 12, 15)
 Sidebar.BorderSizePixel = 0
 Sidebar.Parent = MainFrame
 
--- Inhaltsbereich rechts
+-- Content Container (Rechts)
 local ContentContainer = Instance.new("Frame")
-ContentContainer.Size = UDim2.new(1, -150, 1, -42)
-ContentContainer.Position = UDim2.new(0, 150, 0, 42)
+ContentContainer.Size = UDim2.new(1, -150, 1, -40)
+ContentContainer.Position = UDim2.new(0, 150, 0, 40)
 ContentContainer.BackgroundTransparency = 1
 ContentContainer.Parent = MainFrame
 
--- Tabs erstellen
+-- Tabs verwalten
 local Pages = {}
 local function createPage(name)
-    local page = Instance.new("ScrollingFrame")
+    local page = Instance.new("Frame")
     page.Name = name
     page.Size = UDim2.new(1, 0, 1, 0)
     page.BackgroundTransparency = 1
-    page.BorderSizePixel = 0
-    page.CanvasSize = UDim2.new(0, 0, 0, 0)
-    page.ScrollBarThickness = 3
     page.Visible = false
     page.Parent = ContentContainer
     Pages[name] = page
@@ -166,43 +157,37 @@ local function switchTab(tabName)
     end
 end
 
--- Sidebar Buttons mit feinem Hover-Effekt
+-- Sidebar Buttons
 local function createTabButton(text, yPos, tabName)
     local btn = Instance.new("TextButton")
-    btn.Size = UDim2.new(1, -16, 0, 38)
+    btn.Size = UDim2.new(1, -16, 0, 36)
     btn.Position = UDim2.new(0, 8, 0, yPos)
-    btn.BackgroundColor3 = Color3.fromRGB(20, 20, 26)
+    btn.BackgroundColor3 = Color3.fromRGB(18, 18, 22)
     btn.Text = text
-    btn.TextColor3 = Color3.fromRGB(190, 190, 205)
+    btn.TextColor3 = Color3.fromRGB(170, 170, 185)
     btn.TextSize = 11
     btn.Font = Enum.Font.GothamMedium
     btn.Parent = Sidebar
 
     local corner = Instance.new("UICorner")
-    corner.CornerRadius = UDim.new(0, 10)
+    corner.CornerRadius = UDim.new(0, 8)
     corner.Parent = btn
 
-    local stroke = Instance.new("UIStroke")
-    stroke.Color = Color3.fromRGB(40, 40, 52)
-    stroke.Thickness = 1
-    stroke.Parent = btn
-
     btn.MouseEnter:Connect(function()
-        TweenService:Create(btn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(28, 28, 38), TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+        TweenService:Create(btn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(25, 25, 32), TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
     end)
     btn.MouseLeave:Connect(function()
-        TweenService:Create(btn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(20, 20, 26), TextColor3 = Color3.fromRGB(190, 190, 205)}):Play()
+        TweenService:Create(btn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(18, 18, 22), TextColor3 = Color3.fromRGB(170, 170, 185)}):Play()
     end)
-
     btn.MouseButton1Click:Connect(function()
         switchTab(tabName)
     end)
 end
 
 createTabButton("   [ 🏠 ] HOME", 15, "Home")
-createTabButton("   [ 🚗 ] SPAWN", 60, "Spawn")
-createTabButton("   [ ⚡ ] GESCHWINDIGKEIT", 105, "Geschwindigkeit")
-createTabButton("   [ ⚙️ ] EINSTELLUNGEN", 150, "Einstellungen")
+createTabButton("   [ 🚗 ] SPAWN", 56, "Spawn")
+createTabButton("   [ ⚡ ] GESCHWINDIGKEIT", 97, "Geschwindigkeit")
+createTabButton("   [ ⚙️ ] EINSTELLUNGEN", 138, "Einstellungen")
 
 switchTab("Home")
 
@@ -213,78 +198,141 @@ local homeWelcome = Instance.new("TextLabel")
 homeWelcome.Size = UDim2.new(1, -30, 0, 40)
 homeWelcome.Position = UDim2.new(0, 15, 0, 20)
 homeWelcome.BackgroundTransparency = 1
-homeWelcome.Text = "Shadow Design Control Center aktiv."
-homeWelcome.TextColor3 = Color3.fromRGB(210, 210, 220)
+homeWelcome.Text = "Willkommen im Shadow Design System."
+homeWelcome.TextColor3 = Color3.fromRGB(220, 220, 230)
 homeWelcome.TextSize, homeWelcome.Font = 12, Enum.Font.GothamBold
 homeWelcome.TextXAlignment = Enum.TextXAlignment.Left
 homeWelcome.Parent = homePage
 
 ---------------------------------------------------
--- SPAWN TAB (Mit allen Modellen & fehlerfreiem Bubble Pop-up)
+-- SPAWN TAB (Mit funktionierender Suchfunktion & allen Fahrzeugen)
 ---------------------------------------------------
 local spawnTitle = Instance.new("TextLabel")
-spawnTitle.Size = UDim2.new(1, -30, 0, 30)
-spawnTitle.Position = UDim2.new(0, 15, 0, 15)
+spawnTitle.Size = UDim2.new(1, -30, 0, 24)
+spawnTitle.Position = UDim2.new(0, 15, 0, 12)
 spawnTitle.BackgroundTransparency = 1
 spawnTitle.Text = "[ 🚗 ] FAHRZEUG SPAWN LISTE (CLIENT)"
-spawnTitle.TextColor3 = Color3.fromRGB(235, 235, 245)
-spawnTitle.TextSize = 12
+spawnTitle.TextColor3 = Color3.fromRGB(240, 240, 245)
+spawnTitle.TextSize = 11
 spawnTitle.Font = Enum.Font.GothamBold
 spawnTitle.TextXAlignment = Enum.TextXAlignment.Left
 spawnTitle.Parent = spawnPage
 
-local function createSpawnButton(text, yPos, remoteArg)
-    local spawnBtn = Instance.new("TextButton")
-    spawnBtn.AnchorPoint = Vector2.new(0.5, 0)
-    spawnBtn.Size = UDim2.new(0, 240, 0, 42)
-    spawnBtn.Position = UDim2.new(0.5, 0, 0, yPos)
-    spawnBtn.BackgroundColor3 = Color3.fromRGB(22, 22, 30)
-    spawnBtn.Text = text
-    spawnBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    spawnBtn.TextSize = 11
-    spawnBtn.Font = Enum.Font.GothamBold
-    spawnBtn.Parent = spawnPage
+-- Suchfeld (Search Bar)
+local SearchBox = Instance.new("TextBox")
+SearchBox.Size = UDim2.new(1, -30, 0, 32)
+SearchBox.Position = UDim2.new(0, 15, 0, 42)
+SearchBox.BackgroundColor3 = Color3.fromRGB(20, 20, 26)
+SearchBox.PlaceholderText = "Fahrzeug suchen..."
+SearchBox.PlaceholderColor3 = Color3.fromRGB(120, 120, 140)
+SearchBox.Text = ""
+SearchBox.TextColor3 = Color3.fromRGB(240, 240, 245)
+SearchBox.TextSize = 11
+SearchBox.Font = Enum.Font.Gotham
+SearchBox.ClearTextOnFocus = false
+SearchBox.Parent = spawnPage
 
-    local spawnCorner = Instance.new("UICorner")
-    spawnCorner.CornerRadius = UDim.new(0, 10)
-    spawnCorner.Parent = spawnBtn
+local SearchCorner = Instance.new("UICorner")
+SearchCorner.CornerRadius = UDim.new(0, 8)
+SearchCorner.Parent = SearchBox
 
-    local spawnStroke = Instance.new("UIStroke")
-    spawnStroke.Color = Color3.fromRGB(70, 70, 90)
-    spawnStroke.Thickness = 1.5
-    spawnStroke.Parent = spawnBtn
+local SearchStroke = Instance.new("UIStroke")
+SearchStroke.Color = Color3.fromRGB(50, 50, 65)
+SearchStroke.Thickness = 1
+SearchStroke.Parent = SearchBox
 
-    -- Stabiler Bubble-Pop-up-Effekt nach oben (zentriert skaliert)
-    spawnBtn.MouseEnter:Connect(function()
-        TweenService:Create(spawnBtn, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-            Size = UDim2.new(0, 248, 0, 45)
-        }):Play()
+-- Scrollable List Container für die Fahrzeuge
+local ScrollContainer = Instance.new("ScrollingFrame")
+ScrollContainer.Size = UDim2.new(1, -30, 1, -88)
+ScrollContainer.Position = UDim2.new(0, 15, 0, 82)
+ScrollContainer.BackgroundTransparency = 1
+ScrollContainer.BorderSizePixel = 0
+ScrollContainer.CanvasSize = UDim2.new(0, 0, 0, 0)
+ScrollContainer.ScrollBarThickness = 3
+ScrollContainer.Parent = spawnPage
+
+local UIListLayout = Instance.new("UIListLayout")
+UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout.Padding = UDim.new(0, 8)
+UIListLayout.Parent = ScrollContainer
+
+UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+    ScrollContainer.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y + 10)
+end)
+
+-- Vollständige Fahrzeugliste (alle client)
+local vehicleList = {
+    {Name = "DUALTRON TOGO (client)", Arg = "Dualtron Togo"},
+    {Name = "SURON (client)", Arg = "kukurins1max"},
+    {Name = "DUALTRON THUNDER (client)", Arg = "Dualtron Thunder"},
+    {Name = "DUALTRON X (client)", Arg = "Dualtron X"},
+    {Name = "XIAOMI M365 (client)", Arg = "Xiaomi M365"},
+    {Name = "NINEBOT MAX (client)", Arg = "Ninebot Max"}
+}
+
+local spawnedButtons = {}
+
+local function createSpawnItem(data)
+    local btn = Instance.new("TextButton")
+    btn.Size = UDim2.new(1, 0, 0, 38)
+    btn.BackgroundColor3 = Color3.fromRGB(20, 20, 26)
+    btn.Text = "   " .. data.Name
+    btn.TextColor3 = Color3.fromRGB(230, 230, 240)
+    btn.TextSize = 11
+    btn.Font = Enum.Font.GothamBold
+    btn.TextXAlignment = Enum.TextXAlignment.Left
+    btn.Parent = ScrollContainer
+
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 8)
+    corner.Parent = btn
+
+    local stroke = Instance.new("UIStroke")
+    stroke.Color = Color3.fromRGB(50, 50, 65)
+    stroke.Thickness = 1
+    stroke.Parent = btn
+
+    btn.MouseEnter:Connect(function()
+        TweenService:Create(btn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(28, 28, 38)}):Play()
     end)
-    spawnBtn.MouseLeave:Connect(function()
-        TweenService:Create(spawnBtn, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-            Size = UDim2.new(0, 240, 0, 42)
-        }):Play()
+    btn.MouseLeave:Connect(function()
+        TweenService:Create(btn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(20, 20, 26)}):Play()
     end)
 
-    spawnBtn.MouseButton1Click:Connect(function()
+    btn.MouseButton1Click:Connect(function()
         local eventsFolder = ReplicatedStorage:FindFirstChild("ScooterEvents")
         if eventsFolder then
             for _, remote in ipairs(eventsFolder:GetChildren()) do
                 if remote:IsA("RemoteEvent") then
                     pcall(function()
-                        remote:FireServer(remoteArg)
+                        remote:FireServer(data.Arg)
                     end)
                 end
             end
         end
     end)
+
+    table.insert(spawnedButtons, {Button = btn, Name = string.lower(data.Name)})
 end
 
-createSpawnButton("DUALTRON TOGO (client)", 55, "Dualtron Togo")
-createSpawnButton("SURON (client)", 105, "kukurins1max")
+for _, v in ipairs(vehicleList) do
+    createSpawnItem(v)
+end
+
+-- Suchfunktion Logik
+SearchBox:GetPropertyChangedSignal("Text"):Connect(function()
+    local query = string.lower(SearchBox.Text)
+    for _, item in ipairs(spawnedButtons) do
+        if query == "" or string.find(item.Name, query) then
+            item.Button.Visible = true
+        else
+            item.Button.Visible = false
+        end
+    end
+end)
 
 ---------------------------------------------------
--- GESCHWINDIGKEIT TAB (Regler & Tacho)
+-- GESCHWINDIGKEIT TAB
 ---------------------------------------------------
 local speedVal = 100
 
@@ -293,8 +341,8 @@ speedTitle.Size = UDim2.new(1, -30, 0, 30)
 speedTitle.Position = UDim2.new(0, 15, 0, 15)
 speedTitle.BackgroundTransparency = 1
 speedTitle.Text = "[ ⚡ ] GESCHWINDIGKEITS-REGLER"
-speedTitle.TextColor3 = Color3.fromRGB(235, 235, 245)
-speedTitle.TextSize = 12
+speedTitle.TextColor3 = Color3.fromRGB(240, 240, 245)
+speedTitle.TextSize = 11
 speedTitle.Font = Enum.Font.GothamBold
 speedTitle.TextXAlignment = Enum.TextXAlignment.Left
 speedTitle.Parent = speedPage
@@ -304,14 +352,14 @@ speedDisplay.Size = UDim2.new(1, -30, 0, 20)
 speedDisplay.Position = UDim2.new(0, 15, 0, 45)
 speedDisplay.BackgroundTransparency = 1
 speedDisplay.Text = "Aktueller Wert: 100 KM/H"
-speedDisplay.TextColor3 = Color3.fromRGB(150, 150, 170)
+speedDisplay.TextColor3 = Color3.fromRGB(160, 160, 180)
 speedDisplay.TextSize, speedDisplay.Font = 11, Enum.Font.Gotham
 speedDisplay.TextXAlignment = Enum.TextXAlignment.Left
 speedDisplay.Parent = speedPage
 
--- Slider Leiste
+-- Slider
 local SliderBg = Instance.new("Frame")
-SliderBg.Size = UDim2.new(1, -30, 0, 10)
+SliderBg.Size = UDim2.new(1, -30, 0, 8)
 SliderBg.Position = UDim2.new(0, 15, 0, 85)
 SliderBg.BackgroundColor3 = Color3.fromRGB(20, 20, 26)
 SliderBg.BorderSizePixel = 0
@@ -321,14 +369,9 @@ local SliderBgCorner = Instance.new("UICorner")
 SliderBgCorner.CornerRadius = UDim.new(1, 0)
 SliderBgCorner.Parent = SliderBg
 
-local SliderBgStroke = Instance.new("UIStroke")
-SliderBgStroke.Color = Color3.fromRGB(55, 55, 70)
-SliderBgStroke.Thickness = 1
-SliderBgStroke.Parent = SliderBg
-
 local SliderFill = Instance.new("Frame")
 SliderFill.Size = UDim2.new(100 / 300, 0, 1, 0)
-SliderFill.BackgroundColor3 = Color3.fromRGB(235, 235, 245)
+SliderFill.BackgroundColor3 = Color3.fromRGB(220, 220, 235)
 SliderFill.BorderSizePixel = 0
 SliderFill.Parent = SliderBg
 
@@ -338,8 +381,8 @@ SliderFillCorner.Parent = SliderFill
 
 local draggingSlider = false
 local SliderButton = Instance.new("TextButton")
-SliderButton.Size = UDim2.new(0, 18, 0, 18)
-SliderButton.Position = UDim2.new(1, -9, 0.5, -9)
+SliderButton.Size = UDim2.new(0, 16, 0, 16)
+SliderButton.Position = UDim2.new(1, -8, 0.5, -8)
 SliderButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 SliderButton.Text = ""
 SliderButton.Parent = SliderFill
@@ -379,8 +422,8 @@ bindTitle.Size = UDim2.new(1, -30, 0, 30)
 bindTitle.Position = UDim2.new(0, 15, 0, 15)
 bindTitle.BackgroundTransparency = 1
 bindTitle.Text = "[ ⚙️ ] GUI EIN/AUSBLENDEN TASTE"
-bindTitle.TextColor3 = Color3.fromRGB(235, 235, 245)
-bindTitle.TextSize = 12
+bindTitle.TextColor3 = Color3.fromRGB(240, 240, 245)
+bindTitle.TextSize = 11
 bindTitle.Font = Enum.Font.GothamBold
 bindTitle.TextXAlignment = Enum.TextXAlignment.Left
 bindTitle.Parent = settingsPage
@@ -388,35 +431,28 @@ bindTitle.Parent = settingsPage
 local currentKey = Enum.KeyCode.LeftControl
 local bindBtn = Instance.new("TextButton")
 bindBtn.AnchorPoint = Vector2.new(0.5, 0)
-bindBtn.Size = UDim2.new(0, 190, 0, 40)
+bindBtn.Size = UDim2.new(0, 180, 0, 38)
 bindBtn.Position = UDim2.new(0.5, 0, 0, 55)
-bindBtn.BackgroundColor3 = Color3.fromRGB(22, 22, 30)
+bindBtn.BackgroundColor3 = Color3.fromRGB(20, 20, 26)
 bindBtn.Text = "LeftControl"
-bindBtn.TextColor3 = Color3.fromRGB(235, 235, 245)
+bindBtn.TextColor3 = Color3.fromRGB(240, 240, 245)
 bindBtn.TextSize, bindBtn.Font = 11, Enum.Font.GothamBold
 bindBtn.Parent = settingsPage
 
 local bindCorner = Instance.new("UICorner")
-bindCorner.CornerRadius = UDim.new(0, 10)
+bindCorner.CornerRadius = UDim.new(0, 8)
 bindCorner.Parent = bindBtn
 
 local bindStroke = Instance.new("UIStroke")
-bindStroke.Color = Color3.fromRGB(70, 70, 90)
-bindStroke.Thickness = 1.5
+bindStroke.Color = Color3.fromRGB(50, 50, 65)
+bindStroke.Thickness = 1
 bindStroke.Parent = bindBtn
-
-bindBtn.MouseEnter:Connect(function()
-    TweenService:Create(bindBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(32, 32, 44)}):Play()
-end)
-bindBtn.MouseLeave:Connect(function()
-    TweenService:Create(bindBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(22, 22, 30)}):Play()
-end)
 
 local bindingKey = false
 bindBtn.MouseButton1Click:Connect(function()
     if bindingKey then return end
     bindingKey = true
-    bindBtn.Text = "DRÜCKE EINE TASTE..."
+    bindBtn.Text = "DRÜCKE TASTE..."
     bindBtn.TextColor3 = Color3.fromRGB(220, 180, 60)
     
     local connection
@@ -424,7 +460,7 @@ bindBtn.MouseButton1Click:Connect(function()
         if input.UserInputType == Enum.UserInputType.Keyboard then
             currentKey = input.KeyCode
             bindBtn.Text = input.KeyCode.Name
-            bindBtn.TextColor3 = Color3.fromRGB(235, 235, 245)
+            bindBtn.TextColor3 = Color3.fromRGB(240, 240, 245)
             bindingKey = false
             connection:Disconnect()
         end
@@ -438,13 +474,17 @@ UserInputService.InputBegan:Connect(function(input)
 end)
 
 ---------------------------------------------------
--- STABILER HIGH-SPEED MOTOR (Mit Schwerkraft-Schutz für alle Modelle)
+-- HIGH-SPEED MOTOR MOTORISIERUNG (Mit Physik & Schwerkraft-Schutz)
 ---------------------------------------------------
 task.spawn(function()
     RunService.RenderStepped:Connect(function()
         local possibleNames = {
             "Dualtron Togo_OwnedBy_" .. player.Name,
-            "kukurins1max_OwnedBy_" .. player.Name
+            "kukurins1max_OwnedBy_" .. player.Name,
+            "Dualtron Thunder_OwnedBy_" .. player.Name,
+            "Dualtron X_OwnedBy_" .. player.Name,
+            "Xiaomi M365_OwnedBy_" .. player.Name,
+            "Ninebot Max_OwnedBy_" .. player.Name
         }
         
         local targetModel = nil
@@ -466,7 +506,6 @@ task.spawn(function()
                     end
                 end)
                 
-                -- PRÜFUNG: Sitzt oder steht der Spieler auf dem Fahrzeug?
                 local isConnectedToPlayer = false
                 local character = player.Character
                 if character then
@@ -484,11 +523,10 @@ task.spawn(function()
                     end
                 end
                 
-                -- Turbo greift nur beim Aufsitzen, behält die Y-Schwerkraft exakt bei
                 if isConnectedToPlayer then
                     for _, desc in ipairs(targetModel:GetDescendants()) do
                         if desc:IsA("LinearVelocity") then
-                            desc.MaxForce = 25000
+                            desc.MaxForce = 30000
                             if UserInputService:IsKeyDown(Enum.KeyCode.W) or UserInputService:IsKeyDown(Enum.KeyCode.Up) then
                                 local lookV = basePart.CFrame.LookVector
                                 desc.VectorVelocity = Vector3.new(lookV.X * speedVal, desc.VectorVelocity.Y, lookV.Z * speedVal)
